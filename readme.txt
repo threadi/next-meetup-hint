@@ -14,6 +14,12 @@ Show the next meetup in your region as hint in every backend page.
 
 Show the next meetup in your region as hint in every backend page.
 
+= Background =
+
+This plugin was created at the WordPress Meetup in Leipzig on October 1, 2024 as part of a presentation on plugin development.
+
+= Repository =
+
 The development repository is on [GitHub](https://github.com/threadi/next-meetup-hint).
 
 ---
@@ -37,3 +43,8 @@ The plugin uses the function included in WordPress to retrieve Meetup events fro
 
 = 1.0.0 =
 * Initial release
+
+= 1.0.1 =
+* WCS compatible
+* WordPress-VIP-Go compatible
+* Fixed required WP-version tag to 4.9.24
