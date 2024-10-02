@@ -1,0 +1,28 @@
+{
+    "name": "threadi/next-meetup-hin",
+    "version": "1.0.0",
+    "authors": [
+        {
+            "name": "Thomas Zwirner",
+            "email": "tz@laolaweb.com"
+        }
+    ],
+    "type": "wordpress-plugin",
+    "homepage": "https://laolaweb.com",
+    "minimum-stability": "stable",
+    "scripts": {
+        "post-install-cmd": [
+            "\"vendor/bin/phpcs\" --config-set installed_paths vendor/wp-coding-standards/wpcs,vendor/phpcsstandards/phpcsutils,vendor/phpcsstandards/phpcsextra,vendor/sirbrillig/phpcs-variable-analysis,vendor/automattic/vipwpcs"
+        ],
+        "post-update-cmd": [
+            "\"vendor/bin/phpcs\" --config-set installed_paths vendor/wp-coding-standards/wpcs,vendor/phpcsstandards/phpcsutils,vendor/phpcsstandards/phpcsextra,vendor/sirbrillig/phpcs-variable-analysis,vendor/automattic/vipwpcs"
+        ]
+    },
+    "require": {
+        "php": "^8.0"
+    },
+    "require-dev": {
+        "wp-coding-standards/wpcs": "^3.1.0",
+        "automattic/vipwpcs": "^3.0"
+    }
+}
