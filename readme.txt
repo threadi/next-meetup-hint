@@ -6,7 +6,7 @@ Tested up to: 6.6
 Requires PHP: 8.0
 License: GPL-2.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
-Stable tag: 1.0.0
+Stable tag: 1.0.1
 
 Show the next meetup in your region as hint in every backend page.
 
@@ -17,6 +17,8 @@ Show the next meetup in your region as hint in every backend page.
 = Background =
 
 This plugin was created at the WordPress Meetup in Leipzig on October 1, 2024 as part of a presentation on plugin development.
+
+Video from the presentation in on [YouTube](https://www.youtube.com/watch?v=8QUesHXOXCs).
 
 = Repository =
 
