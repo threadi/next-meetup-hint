@@ -14,6 +14,8 @@ Show the next meetup in your region as hint in every backend page.
 
 Show the next meetup in your region as hint in every backend page.
 
+The development repository is on [GitHub](https://github.com/threadi/next-meetup-hint).
+
 ---
 
 == Installation ==
