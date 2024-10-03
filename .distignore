@@ -1,6 +1,7 @@
 /.git
 /.github
 /.idea
+/assets
 /vendor
 .editorconfig
 composer.json

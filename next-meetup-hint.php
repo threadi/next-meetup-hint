@@ -4,7 +4,7 @@
  * Description:       Show hint for next meetup.
  * Requires at least: 4.9.24
  * Requires PHP:      8.0
- * Version:           1.0.1
+ * Version:           1.0.2
  * Author:            Thomas Zwirner
  * Author URI:        https://www.thomaszwirner.de
  * License:           GPL-2.0-or-later
@@ -31,6 +31,11 @@ function next_meetup_hint_init(): void {
 	if ( empty( $events ) ) {
 		return;
 	}
+
+    // bail if it is a wp error.
+    if( is_wp_error( $events ) ) {
+        return;
+    }
 
 	// bail if no event list is found.
 	if ( empty( $events['events'] ) ) {
