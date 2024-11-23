@@ -1,0 +1,9 @@
+.next-meetup-hint {
+	position: relative;
+	z-index: 1;
+}
+
+.next-meetup-hint .notice-dismiss:before {
+	display: inline-block;
+	float: right;
+}
