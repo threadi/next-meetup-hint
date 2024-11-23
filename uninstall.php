@@ -19,7 +19,8 @@ if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) {
 delete_transient( 'next_meetup_hint' );
 
 // delete settings on user profiles.
-foreach( get_users() as $user ) {
+foreach ( get_users() as $user ) {
 	delete_user_meta( $user->ID, 'hide_next_meet_hint' );
 	delete_user_meta( $user->ID, 'next_meet_hint_days' );
+	delete_user_meta( $user->ID, 'hide_next_meetup_hint_for_2_days' );
 }
