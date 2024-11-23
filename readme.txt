@@ -53,3 +53,7 @@ The plugin uses the function included in WordPress to retrieve Meetup events fro
 
 = 1.0.2 =
 * Fixed potential error from event list
+
+= 1.1.0 =
+* Added option on user profile to hide the hints
+* Added option on user profile to set the days before the hint is visible
