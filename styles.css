@@ -3,6 +3,18 @@
 	z-index: 1;
 }
 
+.next-meetup-hint h3, .next-meetup-hint h4 { margin: 1em 0 0; }
+
+.next-meetup-hint p { line-height: 2; }
+
+.next-meetup-hint p a.settings { text-decoration: none; }
+
+.next-meetup-hint p .dashicons {
+	position: relative;
+	top: 3px;
+	z-index: 1;
+}
+
 .next-meetup-hint .notice-dismiss:before {
 	display: inline-block;
 	float: right;

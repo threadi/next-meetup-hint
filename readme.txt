@@ -6,7 +6,7 @@ Tested up to: 6.7
 Requires PHP: 8.0
 License: GPL-2.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
-Stable tag: 1.0.2
+Stable tag: 2.0.0
 
 Show the next meetup in your region as hint in every backend page.
 
@@ -54,8 +54,10 @@ The plugin uses the function included in WordPress to retrieve Meetup events fro
 = 1.0.2 =
 * Fixed potential error from event list
 
-= 1.1.0 =
+= 2.0.0 =
 * Added option on user profile to hide the hints
 * Added option on user profile to set the days before the hint is visible
 * Added option to user-specific hide the hint for 2 days
+* Added template for the hint
+* Added location to the hint
 * Fixed next date calculation
