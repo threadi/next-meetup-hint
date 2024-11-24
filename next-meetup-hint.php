@@ -119,20 +119,8 @@ function next_meetup_hint_notice(): void {
 		return;
 	}
 
-	// output.
-	?>
-	<div class="next-meetup-hint updated">
-		<h3><?php echo esc_html__( 'Next Meetup in your location', 'next-meetup-hint' ); ?></h3>
-		<h4><?php echo esc_html( $event['title'] ); ?></h4>
-		<p>
-			<?php
-			echo esc_html( gmdate( 'd.m.Y H:i', strtotime( $event['date'] ) ) );
-			echo '<br><a href="' . esc_url( $event['url'] ) . '" target="_blank">' . esc_html__( 'get more info', 'next-meetup-hint' ) . '</a>';
-			?>
-		</p>
-		<button type="button" class="notice-dismiss"><?php echo esc_html__( 'Dismiss', 'next-meetup-hint' ); ?><span class="screen-reader-text"><?php echo esc_html__( 'Hide this message for 2 days', 'next-meetup-hint' ); ?></span></button>
-	</div>
-	<?php
+	// output the template.
+	require_once next_meetup_get_template( 'event.php' );
 
 	// delete the trigger.
 	delete_transient( 'next_meetup_hint' );
@@ -275,3 +263,38 @@ function next_meetup_hint_hide_via_ajax(): void {
 	wp_send_json_success();
 }
 add_action( 'wp_ajax_next_meetup_hint_dismiss_admin_notice', 'next_meetup_hint_hide_via_ajax' );
+
+/**
+ * Return path to the requested template.
+ *
+ * @param string $template The file name of the template.
+ *
+ * @return string
+ */
+function next_meetup_get_template( string $template ): string {
+	// check if requested template exist in theme.
+	$theme_template = locate_template( trailingslashit( basename( dirname( __FILE__ ) ) ) . $template );
+	if ( $theme_template ) {
+		return $theme_template;
+	}
+
+	// set the directory for template to use.
+	$directory = basename( dirname( __FILE__ ) );
+
+	/**
+	 * Set template directory.
+	 *
+	 * Defaults to our own plugin-directory.
+	 *
+	 * @since 2.0.0 Available since 2.0.0.
+	 *
+	 * @param string $directory The directory to use.
+	 */
+	$plugin_template = plugin_dir_path( apply_filters( 'next_meetup_hint_set_template_directory', $directory ) ) . 'templates/' . $template;
+	if ( file_exists( $plugin_template ) ) {
+		return $plugin_template;
+	}
+
+	// return template of the plugin.
+	return plugin_dir_path( __FILE__ ) . 'templates/' . $template;
+}
