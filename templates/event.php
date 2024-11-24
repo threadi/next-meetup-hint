@@ -6,8 +6,8 @@
  *
  * @package next-meetup-hint
  */
-?>
 
+?>
 <div class="next-meetup-hint updated">
 	<h3><?php echo esc_html__( 'Next Meetup in your location', 'next-meetup-hint' ); ?></h3>
 	<h4><?php echo esc_html( $event['title'] ); ?></h4>

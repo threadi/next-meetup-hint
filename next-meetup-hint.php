@@ -149,10 +149,12 @@ function next_meetup_user_profile_fields( WP_User $user ): void {
 	// output.
 	?>
 		<h3 id="nextmeetuphint"><?php echo esc_html__( 'Next Meetup Hint', 'next-meetup-hint' ); ?></h3>
-		<p><?php
+		<p>
+		<?php
 			/* translators: %1$s will be replaced by a URL. */
 			echo wp_kses_post( sprintf( __( 'Change your location on the widget "WordPress Events and News" on the <a href="%1$s">Dashboard</a>.', 'next-meetup-hint' ), esc_url( $dashboard_url ) ) );
-		?></p>
+		?>
+		</p>
 		<table class="form-table">
 			<tr>
 				<th><label for="hide_next_meet_hint"><?php echo esc_html__( 'Hide next meetup hint', 'next-meetup-hint' ); ?></label></th>
@@ -179,7 +181,7 @@ function next_meetup_user_profile_fields( WP_User $user ): void {
 						$url = add_query_arg(
 							array(
 								'action' => 'next_meet_hint_remove_lock',
-								'nonce' => wp_create_nonce( 'next-meet-hint-remove-lock' )
+								'nonce'  => wp_create_nonce( 'next-meet-hint-remove-lock' ),
 							),
 							get_admin_url() . 'admin.php'
 						);
@@ -313,13 +315,13 @@ add_action( 'wp_ajax_next_meetup_hint_dismiss_admin_notice', 'next_meetup_hint_h
  */
 function next_meetup_hint_get_template( string $template ): string {
 	// check if requested template exist in theme.
-	$theme_template = locate_template( trailingslashit( basename( dirname( __FILE__ ) ) ) . $template );
+	$theme_template = locate_template( trailingslashit( basename( __DIR__ ) ) . $template );
 	if ( $theme_template ) {
 		return $theme_template;
 	}
 
 	// set the directory for template to use.
-	$directory = basename( dirname( __FILE__ ) );
+	$directory = basename( __DIR__ );
 
 	/**
 	 * Set template directory.
@@ -342,7 +344,7 @@ function next_meetup_hint_get_template( string $template ): string {
 /**
  * Add link to go to the user-specific settings in plugin list.
  *
- * @param array $links
+ * @param array $links List of links for this plugin in plugin list.
  *
  * @return array
  */
