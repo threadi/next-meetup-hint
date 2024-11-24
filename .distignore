@@ -7,3 +7,5 @@
 composer.json
 readme.md
 .distignore
+releases
+svn
