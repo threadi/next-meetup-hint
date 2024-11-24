@@ -4,6 +4,17 @@
 
 This repository provides the features of WordPress plugin _Next meetup hint_. The repository is used as a basis for deploying the plugin to the WordPress repository. It is not intended to run as a plugin as it is, even if that is possible for development.
 
+## Usage
+
+### for users
+
+Download the plugin [from the WordPress Repository](https://wordpress.org/plugins/next-meetup-hint/).
+Or download the lastest release ZIP [from GitHub](https://github.com/threadi/next-meetup-hint/releases).
+
+### for developers
+
+Checkout this repository in your development environment.
+
 ## Check for WordPress Coding Standards
 
 ### Initialize

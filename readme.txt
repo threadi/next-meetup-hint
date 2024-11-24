@@ -1,6 +1,6 @@
 === Next Meetup Hint ===
 Contributors: threadi
-Tags: meetup
+Tags: meetup, meetup event
 Requires at least: 4.9.24
 Tested up to: 6.7
 Requires PHP: 8.0
