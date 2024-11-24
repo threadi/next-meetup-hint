@@ -4,7 +4,7 @@
  * Description:       Show hint for next meetup.
  * Requires at least: 4.9.24
  * Requires PHP:      8.0
- * Version:           1.1.0
+ * Version:           2.0.0
  * Author:            Thomas Zwirner
  * Author URI:        https://www.thomaszwirner.de
  * License:           GPL-2.0-or-later
@@ -120,7 +120,7 @@ function next_meetup_hint_notice(): void {
 	}
 
 	// output the template.
-	require_once next_meetup_get_template( 'event.php' );
+	require_once next_meetup_hint_get_template( 'event.php' );
 
 	// delete the trigger.
 	delete_transient( 'next_meetup_hint' );
@@ -140,9 +140,19 @@ function next_meetup_user_profile_fields( WP_User $user ): void {
 	$next_meet_hint_days              = absint( get_user_meta( $user->ID, 'next_meet_hint_days', true ) );
 	$hide_next_meetup_hint_for_2_days = absint( get_user_meta( $user->ID, 'hide_next_meetup_hint_for_2_days', true ) );
 
+	// get dashboard URL.
+	$dashboard_url = add_query_arg(
+		array(),
+		get_admin_url() . 'index.php'
+	);
+
 	// output.
 	?>
-		<h3><?php echo esc_html__( 'Next Meetup Hint', 'next-meetup-hint' ); ?></h3>
+		<h3 id="nextmeetuphint"><?php echo esc_html__( 'Next Meetup Hint', 'next-meetup-hint' ); ?></h3>
+		<p><?php
+			/* translators: %1$s will be replaced by a URL. */
+			echo wp_kses_post( sprintf( __( 'Change your location on the widget "WordPress Events and News" on the <a href="%1$s">Dashboard</a>.', 'next-meetup-hint' ), esc_url( $dashboard_url ) ) );
+		?></p>
 		<table class="form-table">
 			<tr>
 				<th><label for="hide_next_meet_hint"><?php echo esc_html__( 'Hide next meetup hint', 'next-meetup-hint' ); ?></label></th>
@@ -165,8 +175,20 @@ function next_meetup_user_profile_fields( WP_User $user ): void {
 					if ( 1 === $hide_next_meet_hint ) {
 						echo esc_html__( 'Yes, generally hidden', 'next-meetup-hint' );
 					} elseif ( $hide_next_meetup_hint_for_2_days > 0 && $hide_next_meetup_hint_for_2_days >= ( time() - ( 2 * 86400 ) ) ) {
+						// create url.
+						$url = add_query_arg(
+							array(
+								'action' => 'next_meet_hint_remove_lock',
+								'nonce' => wp_create_nonce( 'next-meet-hint-remove-lock' )
+							),
+							get_admin_url() . 'admin.php'
+						);
+
 						/* translators: %1$s will be replaced by a date. */
 						echo esc_html( sprintf( __( 'Yes, until %1$s', 'next-meetup-hint' ), date_i18n( get_option( 'date_format' ) . ' ' . get_option( 'time_format' ), $hide_next_meetup_hint_for_2_days ) ) );
+
+						// show link to remove the lock.
+						echo ' <a href="' . esc_url( $url ) . '">' . esc_html__( 'show them again', 'next-meetup-hint' ) . '</a>';
 					} else {
 						echo esc_html__( 'No, it is visible.', 'next-meetup-hint' );
 					}
@@ -177,7 +199,25 @@ function next_meetup_user_profile_fields( WP_User $user ): void {
 	<?php
 }
 add_action( 'show_user_profile', 'next_meetup_user_profile_fields' );
-add_action( 'edit_user_profile', 'next_meetup_user_profile_fields' );
+
+/**
+ * Remove the user specific lock to show the event hint.
+ *
+ * @return void
+ * @noinspection PhpNoReturnAttributeCanBeAddedInspection
+ */
+function next_meetup_user_remove_lock(): void {
+	// check nonce.
+	check_admin_referer( 'next-meet-hint-remove-lock', 'nonce' );
+
+	// remove the lock.
+	delete_user_meta( get_current_user_id(), 'hide_next_meetup_hint_for_2_days' );
+
+	// forward user.
+	wp_safe_redirect( wp_get_referer() );
+	exit;
+}
+add_action( 'admin_action_next_meet_hint_remove_lock', 'next_meetup_user_remove_lock' );
 
 /**
  * Save fields in user edit profil where he can configure the hint.
@@ -271,7 +311,7 @@ add_action( 'wp_ajax_next_meetup_hint_dismiss_admin_notice', 'next_meetup_hint_h
  *
  * @return string
  */
-function next_meetup_get_template( string $template ): string {
+function next_meetup_hint_get_template( string $template ): string {
 	// check if requested template exist in theme.
 	$theme_template = locate_template( trailingslashit( basename( dirname( __FILE__ ) ) ) . $template );
 	if ( $theme_template ) {
@@ -298,3 +338,19 @@ function next_meetup_get_template( string $template ): string {
 	// return template of the plugin.
 	return plugin_dir_path( __FILE__ ) . 'templates/' . $template;
 }
+
+/**
+ * Add link to go to the user-specific settings in plugin list.
+ *
+ * @param array $links
+ *
+ * @return array
+ */
+function next_meetup_hint_add_plugin_link( array $links ): array {
+	// add the link.
+	$links[] = '<a href="' . esc_url( get_edit_profile_url() ) . '#nextmeetuphint">' . __( 'Configure your settings', 'next-meetup-hint' ) . '</a>';
+
+	// return resulting link list.
+	return $links;
+}
+add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), 'next_meetup_hint_add_plugin_link' );
