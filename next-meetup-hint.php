@@ -14,6 +14,8 @@
  * @package next-meetup-hint
  */
 
+declare(strict_types = 1);
+
 /**
  * Initialize this plugin in backend: load the events and get the event within the next configured days.
  *
@@ -24,7 +26,7 @@ function next_meetup_hint_init(): void {
 	$user_id = get_current_user_id();
 
 	// bail if actual user has disabled the hint in its settings.
-	if ( 1 === absint( get_user_meta( $user_id, 'hide_next_meet_hint', true ) ) ) {
+	if ( 1 === (int) get_user_meta( $user_id, 'hide_next_meet_hint', true ) ) {
 		return;
 	}
 
@@ -35,7 +37,7 @@ function next_meetup_hint_init(): void {
 	}
 
 	// embed the required object file for events from WordPress.
-	require_once ABSPATH . 'wp-admin/includes/class-wp-community-events.php';
+	require_once ABSPATH . 'wp-admin/includes/class-wp-community-events.php'; // @phpstan-ignore requireOnce.fileNotFound
 
 	// get the location the user has configured.
 	$saved_location = get_user_option( 'community-events-location', $user_id );
@@ -215,8 +217,16 @@ function next_meetup_user_remove_lock(): void {
 	// remove the lock.
 	delete_user_meta( get_current_user_id(), 'hide_next_meetup_hint_for_2_days' );
 
+	// get the referer.
+	$referer = wp_get_referer();
+
+	// if no referer could be loaded, just get an empty string.
+	if( ! $referer ) {
+		$referer = '';
+	}
+
 	// forward user.
-	wp_safe_redirect( wp_get_referer() );
+	wp_safe_redirect( $referer );
 	exit;
 }
 add_action( 'admin_action_next_meet_hint_remove_lock', 'next_meetup_user_remove_lock' );
@@ -265,7 +275,7 @@ function next_meetup_add_styles_and_js(): void {
 		'next-meetup-hint',
 		trailingslashit( plugin_dir_url( __FILE__ ) ) . 'styles.css',
 		array(),
-		filemtime( trailingslashit( plugin_dir_path( __FILE__ ) ) . 'styles.css' ),
+		(string) filemtime( trailingslashit( plugin_dir_path( __FILE__ ) ) . 'styles.css' ),
 	);
 
 	// add our own JS.
@@ -273,7 +283,7 @@ function next_meetup_add_styles_and_js(): void {
 		'next-meetup-hint',
 		trailingslashit( plugin_dir_url( __FILE__ ) ) . 'scripts.js',
 		array( 'jquery' ),
-		filemtime( trailingslashit( plugin_dir_path( __FILE__ ) ) . 'scripts.js' ),
+		(string) filemtime( trailingslashit( plugin_dir_path( __FILE__ ) ) . 'scripts.js' ),
 		true
 	);
 
@@ -344,9 +354,9 @@ function next_meetup_hint_get_template( string $template ): string {
 /**
  * Add link to go to the user-specific settings in plugin list.
  *
- * @param array $links List of links for this plugin in plugin list.
+ * @param array<int,string> $links List of links for this plugin in plugin list.
  *
- * @return array
+ * @return array<int,string>
  */
 function next_meetup_hint_add_plugin_link( array $links ): array {
 	// add the link.

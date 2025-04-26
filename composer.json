@@ -1,6 +1,6 @@
 {
-    "name": "threadi/next-meetup-hin",
-    "version": "1.0.0",
+    "name": "threadi/next-meetup-hint",
+    "version": "3.0.0",
     "authors": [
         {
             "name": "Thomas Zwirner",
@@ -18,11 +18,21 @@
             "\"vendor/bin/phpcs\" --config-set installed_paths vendor/wp-coding-standards/wpcs,vendor/phpcsstandards/phpcsutils,vendor/phpcsstandards/phpcsextra,vendor/sirbrillig/phpcs-variable-analysis,vendor/automattic/vipwpcs"
         ]
     },
+    "config": {
+        "allow-plugins" : {
+            "dealerdirect/phpcodesniffer-composer-installer" : true,
+            "phpstan/extension-installer" : true
+        }
+    },
     "require": {
         "php": "^8.0"
     },
     "require-dev": {
         "wp-coding-standards/wpcs": "^3.1.0",
-        "automattic/vipwpcs": "^3.0"
+        "automattic/vipwpcs": "^3.0",
+        "phpstan/phpstan": "^2.1",
+        "szepeviktor/phpstan-wordpress": "^2.0",
+        "phpstan/extension-installer": "^1.4",
+        "php-stubs/wp-cli-stubs": "^2.11"
     }
 }
