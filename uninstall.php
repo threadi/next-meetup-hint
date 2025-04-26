@@ -21,7 +21,7 @@ delete_transient( 'next_meetup_hint' );
 // delete settings on user profiles.
 foreach ( get_users() as $user ) {
 	// bail if user is not a user object.
-	if( ! $user instanceof WP_User ) {
+	if ( ! $user instanceof WP_User ) {
 		continue;
 	}
 

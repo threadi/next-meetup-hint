@@ -221,7 +221,7 @@ function next_meetup_user_remove_lock(): void {
 	$referer = wp_get_referer();
 
 	// if no referer could be loaded, just get an empty string.
-	if( ! $referer ) {
+	if ( ! $referer ) {
 		$referer = '';
 	}
 
