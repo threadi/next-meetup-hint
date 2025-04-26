@@ -61,3 +61,6 @@ The plugin uses the function included in WordPress to retrieve Meetup events fro
 * Added template for the hint
 * Added location to the hint
 * Fixed next date calculation
+
+= 2.1.0 =
+* Use of PHP Strict with PhpStan check to prevent any PHP-side errors
