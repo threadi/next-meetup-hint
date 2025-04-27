@@ -7,6 +7,10 @@
 - Added settings for user management to define who could see the next meetup hints
 - Added link to support forum in plugin list
 - Added option for set the global days were hint it shown before the meetup
+- Added rate hint on settings page
+- Added versioning for templates of this plugin
+- Added options to show location on GoogleMap, OpenStreetMap and/or BingMap
+- Added info popup to inform user why they see this hint
 
 ### Changed
 
@@ -14,6 +18,7 @@
 - Update GitHub action for simplified release management
 - Switched to new changelog format
 - Optimizations for more speed
+- Appearance of the hint optimized
 
 ### Fixed
 
@@ -28,7 +33,6 @@
 - Added option to user-specific hide the hint for 2 days
 - Added template for the hint
 - Added location to the hint
-- Added rate hint on settings page
 
 ### Fixed
 
