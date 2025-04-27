@@ -16,6 +16,20 @@ jobs:
       - name: Run PHPstan check
         run: vendor/bin/phpstan analyse
 
+      - name: Set version number 1
+        uses: richardrigutins/replace-in-files@v2
+        with:
+          files: 'next-meetup-hint.php'
+          search-text: '@@VersionNumber@@'
+          replacement-text: ${{ github.ref_name }}
+
+      - name: Set version number 2
+        uses: richardrigutins/replace-in-files@v2
+        with:
+          files: 'readme.txt'
+          search-text: '@@VersionNumber@@'
+          replacement-text: ${{ github.ref_name }}
+
       - name: ZIP plugin
         run: |
           cd ..

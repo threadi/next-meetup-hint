@@ -6,7 +6,7 @@ Tested up to: 6.8
 Requires PHP: 8.0
 License: GPL-2.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
-Stable tag: 2.0.0
+Stable tag: @@VersionNumber@@
 
 Show the next meetup in your region as hint in every backend page.
 
@@ -64,3 +64,4 @@ The plugin uses the function included in WordPress to retrieve Meetup events fro
 
 = 2.1.0 =
 * Use of PHP Strict with PhpStan check to prevent any PHP-side errors
+* Update GitHub action for simplified release management
