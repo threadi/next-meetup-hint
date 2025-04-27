@@ -23,11 +23,11 @@ Checkout this repository in your development environment.
 
 ### Run
 
-`vendor/bin/phpcs --extensions=php --ignore=*/vendor/*,*/svn/* --standard=WordPress .`
+`vendor/bin/phpcs --extensions=php --ignore=*/vendor/*,*/svn/*,*/app/Dependencies/* --standard=WordPress .`
 
 ### Repair
 
-`vendor/bin/phpcbf --extensions=php --ignore=*/vendor/*,*/svn/* --standard=WordPress .`
+`vendor/bin/phpcbf --extensions=php --ignore=*/vendor/*,*/svn/*,*/app/Dependencies/* --standard=WordPress .`
 
 ## Check for WordPress VIP Coding Standards
 
