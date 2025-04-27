@@ -13,6 +13,11 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
+      - name: Run package installs and builds
+        run: |
+          composer install
+          composer update
+
       - name: Run PHPstan check
         run: vendor/bin/phpstan analyse
 
