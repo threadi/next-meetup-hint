@@ -323,6 +323,8 @@ function next_meetup_add_styles_and_js(): void {
 		array(
 			'ajax_url'      => admin_url( 'admin-ajax.php' ),
 			'dismiss_nonce' => wp_create_nonce( 'next-meetup-hint-hide-hint' ),
+			'review_url' => 'https://wordpress.org/support/plugin/next-meetup-hint/reviews/#new-post',
+			'title_rate_us' => __( 'Rate us', 'next-meetup-hint' )
 		)
 	);
 }

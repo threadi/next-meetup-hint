@@ -19,3 +19,11 @@
 	display: inline-block;
 	float: right;
 }
+
+body.settings_page_next-meetup-hint a.review-hint-button:after {
+	color: #d4af37;
+	content: "\f155 \f155 \f155 \f155 \f155";
+	display: inline-block;
+	font-family: "dashicons", sans-serif;
+	margin-left: 8px;
+}
