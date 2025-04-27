@@ -6,6 +6,7 @@
 
 - Added settings for user management to define who could see the next meetup hints
 - Added link to support forum in plugin list
+- Added option for set the global days were hint it shown before the meetup
 
 ### Changed
 
@@ -13,6 +14,10 @@
 - Update GitHub action for simplified release management
 - Switched to new changelog format
 - Optimizations for more speed
+
+### Fixed
+
+- Fixed wrong usage of user-specific timeframe
 
 ## [2.0.0] - 24.11.2024
 
