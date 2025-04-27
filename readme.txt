@@ -8,11 +8,11 @@ License: GPL-2.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Stable tag: @@VersionNumber@@
 
-Show the next meetup in your region as hint in every backend page.
+Display the next WordPress meeting in your region as a notice on every backend page.
 
 == Description ==
 
-Show the next meetup in your region as hint in every backend page.
+Display the next WordPress meeting in your region as a notice on every backend page. Specify which users in your project may see and use the notice. Define how long in advance the notice should be displayed.
 
 = Background =
 
@@ -37,34 +37,13 @@ The development repository is on [GitHub](https://github.com/threadi/next-meetup
 
 The plugin uses the function included in WordPress to retrieve Meetup events from an API provided by wordpress.org.
 
-== Screenshots ==
-
-1.
-
 == Changelog ==
 
-= 1.0.0 =
-* Initial release
-
-= 1.0.1 =
-* WCS compatible
-* WordPress-VIP-Go compatible
-* Fixed required WP-version tag to 4.9.24
-
-= 1.0.2 =
-* Fixed potential error from event list
-
-= 2.0.0 =
-* Added option on user profile to hide the hints
-* Added option on user profile to set the days before the hint is visible
-* Added option to user-specific hide the hint for 2 days
-* Added template for the hint
-* Added location to the hint
-* Fixed next date calculation
-
-= 3.0.0 =
+= @@VersionNumber@@ =
 * Added settings for user management to define who could see the next meetup hints
 * Added link to support forum in plugin list
 * Use of PHP Strict with PhpStan check to prevent any PHP-side errors
 * Update GitHub action for simplified release management
-* Optimizations on code for more speed
+* Optimizations for more speed
+
+[older changes](https://github.com/threadi/next-meetup-hint/blob/master/changelog.md)
