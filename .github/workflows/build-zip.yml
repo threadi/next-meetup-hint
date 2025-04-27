@@ -21,6 +21,13 @@ jobs:
       - name: Run PHPstan check
         run: vendor/bin/phpstan analyse
 
+      - name: Run WordPress Coding Standard fixes
+        run: vendor/bin/phpcbf --standard=WordPress .
+        continue-on-error: true
+
+      - name: Run WordPress Coding Standard checks
+        run: vendor/bin/phpcs --standard=WordPress .
+
       - name: Set version number 1
         uses: richardrigutins/replace-in-files@v2
         with:
