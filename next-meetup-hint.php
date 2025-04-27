@@ -24,6 +24,9 @@ if ( PHP_VERSION_ID < 80000 ) { // @phpstan-ignore smaller.alwaysFalse
 	return;
 }
 
+// set version.
+const NEXT_MEETUP_HINT_VERSION = '@@VersionNumber@@';
+
 use NextMeetupHint\Dependencies\easySettingsForWordPress\Fields\MultiSelect;
 use NextMeetupHint\Dependencies\easySettingsForWordPress\Fields\Number;
 use NextMeetupHint\Dependencies\easySettingsForWordPress\Settings;
@@ -739,3 +742,48 @@ function next_meetup_hint_add_why(): void {
 	<?php
 }
 add_action( 'next_meetup_hint_event_options', 'next_meetup_hint_add_why', 10, 0 );
+
+/**
+ * Run check for active version to compile update tasks if necessary.
+ *
+ * @return void
+ */
+function next_meetup_hint_check_version(): void {
+	// get installed plugin-version (version of the actual files in this plugin).
+	$installed_plugin_version = NEXT_MEETUP_HINT_VERSION;
+
+	// get db-version (version which was last installed).
+	$db_plugin_version = get_option( 'nextMeetupHint', '1.0.0' );
+
+	// compare version if we are not in development-mode.
+	if (
+		(
+			(
+				function_exists( 'wp_is_development_mode' ) && false === wp_is_development_mode( 'plugin' )
+			)
+			|| ! function_exists( 'wp_is_development_mode' )
+		)
+		&& version_compare( $installed_plugin_version, $db_plugin_version, '>' )
+	) {
+		// initialize settings.
+		next_meetup_hint_add_settings();
+
+		// run settings on activation.
+		Settings::get_instance()->activation();
+	}
+}
+add_action( 'init', 'next_meetup_hint_check_version' );
+
+/**
+ * Tasks to run on activation of this plugin.
+ *
+ * @return void
+ */
+function next_meetup_hint_activation(): void {
+	// initialize settings.
+	next_meetup_hint_add_settings();
+
+	// run settings on activation.
+	Settings::get_instance()->activation();
+}
+register_activation_hook( __FILE__, 'next_meetup_hint_activation' );
