@@ -4,7 +4,7 @@
  * Description:       Show hint for next meetup.
  * Requires at least: 4.9.24
  * Requires PHP:      8.0
- * Version:           2.0.0
+ * Version:           @@VersionNumber@@
  * Author:            Thomas Zwirner
  * Author URI:        https://www.thomaszwirner.de
  * License:           GPL-2.0-or-later
@@ -15,6 +15,14 @@
  */
 
 declare(strict_types = 1);
+
+// prevent direct access.
+defined( 'ABSPATH' ) || exit;
+
+// do nothing if PHP-version is not 8.0 or newer.
+if ( PHP_VERSION_ID < 80000 ) {
+	return;
+}
 
 /**
  * Initialize this plugin in backend: load the events and get the event within the next configured days.
