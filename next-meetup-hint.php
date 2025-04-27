@@ -540,7 +540,7 @@ function next_meetup_hint_add_settings(): void {
 	$setting->set_show_in_rest( false );
 	$field = new MultiSelect();
 	$field->set_title( __( 'Roles', 'next-meetup-hint' ) );
-	$field->set_description( __( 'Select roles that should use and see the Next Meetup hint.', 'play-audio-once' ) );
+	$field->set_description( __( 'Select roles that should use and see the Next Meetup hint.', 'next-meetup-hint' ) );
 	$field->set_options( $roles );
 	$setting->set_field( $field );
 
@@ -551,7 +551,7 @@ function next_meetup_hint_add_settings(): void {
 	$setting->set_show_in_rest( false );
 	$field = new MultiSelect();
 	$field->set_title( __( 'Users', 'next-meetup-hint' ) );
-	$field->set_description( __( 'Select users which should NOT use and see the Next Meetup hint.', 'play-audio-once' ) );
+	$field->set_description( __( 'Select users which should NOT use and see the Next Meetup hint.', 'next-meetup-hint' ) );
 	$field->set_options( $users );
 	$setting->set_field( $field );
 
@@ -608,7 +608,7 @@ function next_meetup_hint_is_user_allowed( int $user_id ): bool {
  *
  * @return array<string>
  */
-function play_audio_once_add_row_meta_links( array $links, string $file ): array {
+function next_meetup_hint_add_row_meta_links( array $links, string $file ): array {
 	// bail if this is not our plugin.
 	if ( __FILE__ !== WP_PLUGIN_DIR . DIRECTORY_SEPARATOR . $file ) {
 		return $links;
@@ -622,7 +622,7 @@ function play_audio_once_add_row_meta_links( array $links, string $file ): array
 	// return the resulting list of links.
 	return array_merge( $links, $row_meta );
 }
-add_filter( 'plugin_row_meta', 'play_audio_once_add_row_meta_links', 10, 2 );
+add_filter( 'plugin_row_meta', 'next_meetup_hint_add_row_meta_links', 10, 2 );
 
 /**
  * Show GoogleMap link on event.
