@@ -323,8 +323,8 @@ function next_meetup_add_styles_and_js(): void {
 		array(
 			'ajax_url'      => admin_url( 'admin-ajax.php' ),
 			'dismiss_nonce' => wp_create_nonce( 'next-meetup-hint-hide-hint' ),
-			'review_url' => 'https://wordpress.org/support/plugin/next-meetup-hint/reviews/#new-post',
-			'title_rate_us' => __( 'Rate us', 'next-meetup-hint' )
+			'review_url'    => 'https://wordpress.org/support/plugin/next-meetup-hint/reviews/#new-post',
+			'title_rate_us' => __( 'Rate us', 'next-meetup-hint' ),
 		)
 	);
 }
@@ -440,9 +440,11 @@ function next_meetup_hint_add_settings(): void {
 	 * Configure the tab for the settings.
 	 */
 	$general_tab = $settings_obj->add_tab( 'nmh_general' );
-	$general_tab->set_name( 'nmh_general' );
 	$general_tab->set_title( __( 'General Settings', 'next-meetup-hint' ) );
 	$settings_obj->set_default_tab( $general_tab );
+
+	$permissions_tab = $settings_obj->add_tab( 'nmh_permissions' );
+	$permissions_tab->set_title( __( 'Permissions', 'next-meetup-hint' ) );
 
 	/**
 	 * Configure all sections for this settings object.
@@ -451,6 +453,11 @@ function next_meetup_hint_add_settings(): void {
 	$general_tab_general_section = $general_tab->add_section( 'settings_section_general' );
 	$general_tab_general_section->set_title( __( 'General Settings', 'next-meetup-hint' ) );
 	$general_tab_general_section->set_setting( $settings_obj );
+
+	// add permissions settings section.
+	$permissions_tab_general_section = $permissions_tab->add_section( 'settings_section_permissions' );
+	$permissions_tab_general_section->set_title( __( 'Permissions', 'next-meetup-hint' ) );
+	$permissions_tab_general_section->set_setting( $settings_obj );
 
 	/**
 	 * Configure settings for this plugin.
@@ -478,14 +485,56 @@ function next_meetup_hint_add_settings(): void {
 	$field = new Number();
 	$field->set_title( __( 'Hide hint', 'next-meetup-hint' ) );
 	$field->set_description( __( 'Set number of days the hint would be hidden if user use the option to "Dismiss" the notice.', 'next-meetup-hint' ) );
-	$field->set_min( 1 );
+	$field->set_min( 0 );
 	$field->set_max( 365 );
 	$field->set_step( 1 );
 	$setting->set_field( $field );
 
+	// set option to enable GoogleMaps link.
+	$setting = $settings_obj->add_setting( 'nmh_google_maps' );
+	$setting->set_section( $general_tab_general_section );
+	$setting->set_type( 'boolean' );
+	$setting->set_default( true );
+	$setting->set_show_in_rest( false );
+	$setting->set_field(
+		array(
+			'type'        => 'Checkbox',
+			'title'       => __( 'Show GoogleMaps link', 'next-meetup-hint' ),
+			'description' => __( 'If activated, a link to GoogleMaps is displayed for each event, provided that geo-coordinates are available for the event. This allows you to quickly see where the Meetup is taking place and find your way there.', 'next-meetup-hint' ),
+		)
+	);
+
+	// set option to enable OpenStreetMap link.
+	$setting = $settings_obj->add_setting( 'nmh_openstreet_map' );
+	$setting->set_section( $general_tab_general_section );
+	$setting->set_type( 'boolean' );
+	$setting->set_default( true );
+	$setting->set_show_in_rest( false );
+	$setting->set_field(
+		array(
+			'type'        => 'Checkbox',
+			'title'       => __( 'Show OpenStreetMap link', 'next-meetup-hint' ),
+			'description' => __( 'If activated, a link to OpenStreetMap is displayed for each event, provided that geo-coordinates are available for the event. This allows you to quickly see where the Meetup is taking place and find your way there.', 'next-meetup-hint' ),
+		)
+	);
+
+	// set option to enable BingMaps.
+	$setting = $settings_obj->add_setting( 'nmh_bing_maps' );
+	$setting->set_section( $general_tab_general_section );
+	$setting->set_type( 'boolean' );
+	$setting->set_default( true );
+	$setting->set_show_in_rest( false );
+	$setting->set_field(
+		array(
+			'type'        => 'Checkbox',
+			'title'       => __( 'Show BingMaps link', 'next-meetup-hint' ),
+			'description' => __( 'If activated, a link to BingMaps is displayed for each event, provided that geo-coordinates are available for the event. This allows you to quickly see where the Meetup is taking place and find your way there.', 'next-meetup-hint' ),
+		)
+	);
+
 	// select roles which could use next meetup hint.
 	$setting = $settings_obj->add_setting( 'nmh_roles' );
-	$setting->set_section( $general_tab_general_section );
+	$setting->set_section( $permissions_tab_general_section );
 	$setting->set_type( 'array' );
 	$setting->set_default( $roles );
 	$setting->set_show_in_rest( false );
@@ -497,7 +546,7 @@ function next_meetup_hint_add_settings(): void {
 
 	// select users which should NOT use next meetup hint.
 	$setting = $settings_obj->add_setting( 'nmh_hide_users' );
-	$setting->set_section( $general_tab_general_section );
+	$setting->set_section( $permissions_tab_general_section );
 	$setting->set_type( 'array' );
 	$setting->set_show_in_rest( false );
 	$field = new MultiSelect();
@@ -554,8 +603,8 @@ function next_meetup_hint_is_user_allowed( int $user_id ): bool {
 /**
  * Add links in row meta.
  *
- * @param array<string>  $links List of links.
- * @param string $file The requested plugin file name.
+ * @param array<string> $links List of links.
+ * @param string        $file The requested plugin file name.
  *
  * @return array<string>
  */
@@ -574,3 +623,119 @@ function play_audio_once_add_row_meta_links( array $links, string $file ): array
 	return array_merge( $links, $row_meta );
 }
 add_filter( 'plugin_row_meta', 'play_audio_once_add_row_meta_links', 10, 2 );
+
+/**
+ * Show GoogleMap link on event.
+ *
+ * @param array<string,array<string>> $event The event data.
+ *
+ * @return void
+ */
+function next_meetup_hint_add_google_maps_link( array $event ): void {
+	// bail if setting is not enabled.
+	if ( 1 !== absint( get_option( 'nmh_google_maps' ) ) ) {
+		return;
+	}
+
+	// bail if not lat and lon are available.
+	if ( empty( $event['location']['latitude'] ) || empty( $event['location']['longitude'] ) ) {
+		return;
+	}
+
+	// create the link.
+	$url = 'https://maps.google.com/maps?z=12&t=m&q=loc:' . $event['location']['latitude'] . '+' . $event['location']['longitude'];
+
+	// show the button.
+	echo '<a href="' . esc_url( $url ) . '" target="_blank" class="button button-secondary">' . esc_html__( 'Show on Google Maps', 'next-meetup-hint' ) . '</a>';
+}
+add_action( 'next_meetup_hint_event_options', 'next_meetup_hint_add_google_maps_link' );
+
+/**
+ * Show OpenStreetMap link on event.
+ *
+ * @param array<string,array<string>> $event The event data.
+ *
+ * @return void
+ */
+function next_meetup_hint_add_openstreetmap_link( array $event ): void {
+	// bail if setting is not enabled.
+	if ( 1 !== absint( get_option( 'nmh_openstreet_map' ) ) ) {
+		return;
+	}
+
+	// bail if not lat and lon are available.
+	if ( empty( $event['location']['latitude'] ) || empty( $event['location']['longitude'] ) ) {
+		return;
+	}
+
+	// create the link.
+	$url = 'https://www.openstreetmap.org/?mlat=' . $event['location']['latitude'] . '&mlon=' . $event['location']['longitude'];
+
+	// show the button.
+	echo '<a href="' . esc_url( $url ) . '" target="_blank" class="button button-secondary">' . esc_html__( 'Show on OpenStreetMap', 'next-meetup-hint' ) . '</a>';
+}
+add_action( 'next_meetup_hint_event_options', 'next_meetup_hint_add_openstreetmap_link' );
+
+/**
+ * Show BingMap link on event.
+ *
+ * @param array<string,array<string>> $event The event data.
+ *
+ * @return void
+ */
+function next_meetup_hint_add_bingmap_link( array $event ): void {
+	// bail if setting is not enabled.
+	if ( 1 !== absint( get_option( 'nmh_bing_maps' ) ) ) {
+		return;
+	}
+
+	// bail if not lat and lon are available.
+	if ( empty( $event['location']['latitude'] ) || empty( $event['location']['longitude'] ) ) {
+		return;
+	}
+
+	// create the link.
+	$url = 'https://www.bing.com/maps/?cp=' . $event['location']['latitude'] . '%7E' . $event['location']['longitude'] . '&lvl=17.5';
+
+	// show the button.
+	echo '<a href="' . esc_url( $url ) . '" target="_blank" class="button button-secondary">' . esc_html__( 'Show on BingMap', 'next-meetup-hint' ) . '</a>';
+}
+add_action( 'next_meetup_hint_event_options', 'next_meetup_hint_add_bingmap_link' );
+
+/**
+ * Show settings link.
+ *
+ * @return void
+ */
+function next_meetup_hint_add_settings_link(): void {
+	echo '<a href="' . esc_url( get_edit_profile_url() ) . '#nextmeetuphint" class="settings" title="' . esc_attr__( 'Go to your custom settings', 'next-meetup-hint' ) . '"><span class="dashicons dashicons-admin-generic"></span></a>';
+}
+add_action( 'next_meetup_hint_event_options', 'next_meetup_hint_add_settings_link', 10, 0 );
+
+/**
+ * Show a "why"-info with popup.
+ *
+ * @return void
+ */
+function next_meetup_hint_add_why(): void {
+	echo '<a href="#nmhwhy" title="' . esc_attr__( 'Why do I see this hint?', 'next-meetup-hint' ) . '"><span class="dashicons dashicons-info"></span></a>';
+	?>
+	<div id="nmhwhy" class="overlay">
+		<div class="popup">
+			<h2><?php echo esc_html__( 'Why do I see this hint?', 'next-meetup-hint' ); ?></h2>
+			<a class="close" href="#"><span class="dashicons dashicons-no"></span></a>
+			<div class="content">
+				<?php
+				/* translators: %1$s will be replaced by a URL. */
+				echo '<p>' . wp_kses_post( sprintf( __( 'This hint is displayed by the WordPress plugin <a href="%1$s" target="_blank">Next Meetup Hint (opens new window)</a>. It will show you the Meetup closest to you. The basis for the data is contained in WordPress itself and your WordPress user.', 'next-meetup-hint' ), 'https://wordpress.org/plugins/next-meetup-hint/' ) ) . '</p>';
+				/* translators: %1$s will be replaced by a URL. */
+				echo '<p>' . wp_kses_post( sprintf( __( 'You can disable these notifications <a href="%1$s">in your user profile</a>. There you can also specify the intervals at which you would like to see the notification for the Meetup.', 'next-meetup-hint' ), get_edit_profile_url() . '#nextmeetuphint' ) ) . '</p>';
+				/* translators: %1$s will be replaced by a URL. */
+				echo '<p>' . wp_kses_post( sprintf( __( 'If you have any further questions, please feel free to contact <a href="%1$s" target="_blank">our support forum (opens new window)</a>.', 'next-meetup-hint' ), 'https://wordpress.org/support/plugin/next-meetup-hint/' ) ) . '</p>';
+				?>
+			</div>
+		</div>
+	</div>
+	<?php
+}
+add_action( 'next_meetup_hint_event_options', 'next_meetup_hint_add_why', 10, 0 );
