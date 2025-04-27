@@ -12,10 +12,14 @@
     "minimum-stability": "stable",
     "scripts": {
         "post-install-cmd": [
-            "\"vendor/bin/phpcs\" --config-set installed_paths vendor/wp-coding-standards/wpcs,vendor/phpcsstandards/phpcsutils,vendor/phpcsstandards/phpcsextra,vendor/sirbrillig/phpcs-variable-analysis,vendor/automattic/vipwpcs"
+            "\"vendor/bin/phpcs\" --config-set installed_paths vendor/wp-coding-standards/wpcs,vendor/phpcsstandards/phpcsutils,vendor/phpcsstandards/phpcsextra,vendor/sirbrillig/phpcs-variable-analysis,vendor/automattic/vipwpcs",
+            "\"vendor/bin/mozart\" compose",
+            "composer dump-autoload"
         ],
         "post-update-cmd": [
-            "\"vendor/bin/phpcs\" --config-set installed_paths vendor/wp-coding-standards/wpcs,vendor/phpcsstandards/phpcsutils,vendor/phpcsstandards/phpcsextra,vendor/sirbrillig/phpcs-variable-analysis,vendor/automattic/vipwpcs"
+            "\"vendor/bin/phpcs\" --config-set installed_paths vendor/wp-coding-standards/wpcs,vendor/phpcsstandards/phpcsutils,vendor/phpcsstandards/phpcsextra,vendor/sirbrillig/phpcs-variable-analysis,vendor/automattic/vipwpcs",
+            "\"vendor/bin/mozart\" compose",
+            "composer dump-autoload"
         ]
     },
     "config": {
@@ -24,8 +28,26 @@
             "phpstan/extension-installer" : true
         }
     },
+    "extra": {
+        "mozart": {
+            "dep_namespace": "NextMeetupHint\\Dependencies\\",
+            "dep_directory": "/app/Dependencies/",
+            "classmap_directory": "/libs/classes/dependencies/",
+            "classmap_prefix": "NextMeetupHint",
+            "packages": [
+                "threadi/easy-settings-for-wordpress"
+            ]
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "NextMeetupHint\\": "app/"
+        }
+    },
     "require": {
-        "php": "^8.0"
+        "php": "^8.0",
+        "threadi/easy-settings-for-wordpress" : "^1.1.1",
+        "coenjacobs/mozart": "^0.7.1"
     },
     "require-dev": {
         "wp-coding-standards/wpcs": "^3.1.0",

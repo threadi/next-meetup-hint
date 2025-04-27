@@ -4,6 +4,8 @@ parameters:
   paths:
     - next-meetup-hint.php
     - uninstall.php
+  excludePaths:
+    - app/Dependencies/*
   scanFiles:
      - %rootDir%/../../php-stubs/wordpress-stubs/wordpress-stubs.php
      - %rootDir%/../../php-stubs/wp-cli-stubs/wp-cli-stubs.php

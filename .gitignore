@@ -1,2 +1,4 @@
 *.zip
 svn/*
+app/Dependencies/*
+vendor/*
