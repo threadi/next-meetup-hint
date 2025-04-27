@@ -416,9 +416,11 @@ function next_meetup_hint_add_settings(): void {
 
 	// get list of roles.
 	$roles = array();
+	$roles_defaults = array();
 	foreach ( $wp_roles->roles as $name => $role ) {
 		// add this role to the list.
 		$roles[ $name ] = $role['name'];
+		$roles_defaults[] = $name;
 	}
 
 	// get list of users.
@@ -539,7 +541,7 @@ function next_meetup_hint_add_settings(): void {
 	$setting = $settings_obj->add_setting( 'nmh_roles' );
 	$setting->set_section( $permissions_tab_general_section );
 	$setting->set_type( 'array' );
-	$setting->set_default( $roles );
+	$setting->set_default( $roles_defaults );
 	$setting->set_show_in_rest( false );
 	$field = new MultiSelect();
 	$field->set_title( __( 'Roles', 'next-meetup-hint' ) );
@@ -770,6 +772,9 @@ function next_meetup_hint_check_version(): void {
 
 		// run settings on activation.
 		Settings::get_instance()->activation();
+
+		// save new plugin-version in DB.
+		update_option( 'nextMeetupHint', $installed_plugin_version );
 	}
 }
 add_action( 'init', 'next_meetup_hint_check_version' );
