@@ -22,11 +22,11 @@ jobs:
         run: vendor/bin/phpstan analyse
 
       - name: Run WordPress Coding Standard fixes
-        run: vendor/bin/phpcbf --standard=WordPress .
+        run: vendor/bin/phpcbf --extensions=php --ignore=*/vendor/*,*/svn/* --standard=WordPress .
         continue-on-error: true
 
       - name: Run WordPress Coding Standard checks
-        run: vendor/bin/phpcs --standard=WordPress .
+        run: vendor/bin/phpcs --extensions=php --ignore=*/vendor/*,*/svn/* --standard=WordPress .
 
       - name: Set version number 1
         uses: richardrigutins/replace-in-files@v2
