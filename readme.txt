@@ -40,10 +40,19 @@ The plugin uses the function included in WordPress to retrieve Meetup events fro
 == Changelog ==
 
 = @@VersionNumber@@ =
-* Added settings for user management to define who could see the next meetup hints
-* Added link to support forum in plugin list
-* Use of PHP Strict with PhpStan check to prevent any PHP-side errors
-* Update GitHub action for simplified release management
-* Optimizations for more speed
+- Added settings for user management to define who could see the next meetup hints
+- Added link to support forum in plugin list
+- Added option for set the global days were hint it shown before the meetup
+- Added rate hint on settings page
+- Added versioning for templates of this plugin
+- Added options to show location on GoogleMap, OpenStreetMap and/or BingMap
+- Added info popup to inform user why they see this hint
+- Added hooks
+- Use of PHP Strict with PhpStan check to prevent any PHP-side errors
+- Update GitHub action for simplified release management
+- Switched to new changelog format
+- Optimizations for more speed
+- Appearance of the hint optimized
+- Fixed wrong usage of user-specific timeframe
 
 [older changes](https://github.com/threadi/next-meetup-hint/blob/master/changelog.md)
