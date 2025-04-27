@@ -46,8 +46,7 @@
     },
     "require": {
         "php": "^8.0",
-        "threadi/easy-settings-for-wordpress" : "^1.2.1",
-        "coenjacobs/mozart": "^0.7.1"
+        "threadi/easy-settings-for-wordpress" : "^1.2.1"
     },
     "require-dev": {
         "wp-coding-standards/wpcs": "^3.1.0",
@@ -55,6 +54,7 @@
         "phpstan/phpstan": "^2.1",
         "szepeviktor/phpstan-wordpress": "^2.0",
         "phpstan/extension-installer": "^1.4",
-        "php-stubs/wp-cli-stubs": "^2.11"
+        "php-stubs/wp-cli-stubs": "^2.11",
+        "coenjacobs/mozart": "^0.7.1"
     }
 }
