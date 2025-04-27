@@ -28,6 +28,7 @@
 - Added option to user-specific hide the hint for 2 days
 - Added template for the hint
 - Added location to the hint
+- Added rate hint on settings page
 
 ### Fixed
 

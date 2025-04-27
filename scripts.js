@@ -1,4 +1,14 @@
 jQuery(document).ready(function($) {
+  // add option near to list-headline.
+  $('body.settings_page_next-meetup-hint h1').each(function() {
+    let button = document.createElement('a');
+    button.className = 'review-hint-button page-title-action';
+    button.href = nextMeetupHintJsVars.review_url;
+    button.innerHTML = nextMeetupHintJsVars.title_rate_us;
+    button.target = '_blank';
+    this.after(button);
+  })
+
   // save to hide transient-messages via ajax-request.
   $('.next-meetup-hint button.notice-dismiss').on('click',
     function (event) {
