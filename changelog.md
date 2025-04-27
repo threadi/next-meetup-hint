@@ -11,6 +11,7 @@
 - Added versioning for templates of this plugin
 - Added options to show location on GoogleMap, OpenStreetMap and/or BingMap
 - Added info popup to inform user why they see this hint
+- Added hooks
 
 ### Changed
 
