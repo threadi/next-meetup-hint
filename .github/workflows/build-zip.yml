@@ -18,11 +18,11 @@ jobs:
           composer install
           composer update
 
-      - name: Generate autoloader
-        run: composer dump-autoload -oa --no-dev
-
       - name: Run PHPstan check
         run: vendor/bin/phpstan analyse
+
+      - name: Generate autoloader
+        run: composer dump-autoload -oa --no-dev
 
       - name: Run WordPress Coding Standard fixes
         run: vendor/bin/phpcbf --extensions=php --ignore=*/vendor/*,*/svn/*,*/app/Dependencies/* --standard=WordPress .
