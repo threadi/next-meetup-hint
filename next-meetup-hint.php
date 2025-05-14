@@ -415,11 +415,11 @@ function next_meetup_hint_add_settings(): void {
 	}
 
 	// get list of roles.
-	$roles = array();
+	$roles          = array();
 	$roles_defaults = array();
 	foreach ( $wp_roles->roles as $name => $role ) {
 		// add this role to the list.
-		$roles[ $name ] = $role['name'];
+		$roles[ $name ]   = $role['name'];
 		$roles_defaults[] = $name;
 	}
 
@@ -494,6 +494,20 @@ function next_meetup_hint_add_settings(): void {
 	$field->set_max( 365 );
 	$field->set_step( 1 );
 	$setting->set_field( $field );
+
+	// set option to enable ICS link.
+	$setting = $settings_obj->add_setting( 'nmh_ics' );
+	$setting->set_section( $general_tab_general_section );
+	$setting->set_type( 'boolean' );
+	$setting->set_default( true );
+	$setting->set_show_in_rest( false );
+	$setting->set_field(
+		array(
+			'type'        => 'Checkbox',
+			'title'       => __( 'Show ICS link', 'next-meetup-hint' ),
+			'description' => __( 'If activated, a link to download the event as ICS is shown. This file can be used to import the meetup date in your calendar.', 'next-meetup-hint' ),
+		)
+	);
 
 	// set option to enable GoogleMaps link.
 	$setting = $settings_obj->add_setting( 'nmh_google_maps' );
@@ -792,3 +806,63 @@ function next_meetup_hint_activation(): void {
 	Settings::get_instance()->activation();
 }
 register_activation_hook( __FILE__, 'next_meetup_hint_activation' );
+
+/**
+ * Show ICS-download-link on event.
+ *
+ * @return void
+ */
+function next_meetup_hint_add_ics(): void {
+	// bail if option is not enabled.
+	if ( 1 !== absint( get_option( 'nmh_ics' ) ) ) {
+		return;
+	}
+
+	// create URL where the ICS will be downloaded.
+	$url = add_query_arg(
+		array(
+			'action' => 'next_meetup_hint_ics',
+			'nonce'  => wp_create_nonce( 'next-meetup-hint-ics' ),
+			'event'  => 0,
+		),
+		get_admin_url() . 'admin.php'
+	);
+
+	// show the button.
+	echo '<a href="' . esc_url( $url ) . '" class="button button-secondary"><span class="dashicons dashicons-calendar"></span></a>';
+}
+add_action( 'next_meetup_hint_event_options', 'next_meetup_hint_add_ics', 5, 0 );
+
+/**
+ * Return the ICS of an event.
+ *
+ * @return void
+ */
+function next_meetup_hint_get_ics(): void {
+	// check nonce.
+	check_admin_referer( 'next-meetup-hint-ics', 'nonce' );
+
+	// get the event from transient.
+	$event = get_transient( 'next_meetup_hint' );
+
+	// bail if no event is saved.
+	if ( ! $event ) {
+		return;
+	}
+
+	// get timezone from WordPress-settings.
+	$timezone = get_option( 'timezone_string' );
+
+	// create filename.
+	$filename = sanitize_file_name( $event['title'] ) . '.ics';
+
+	// set header.
+	header( 'Content-type: text/calendar; charset=utf-8' );
+
+	// set filename.
+	header( 'Content-Disposition: attachment; filename="' . $filename . '"' );
+
+	// output the ICS-template.
+	require_once next_meetup_hint_get_template( 'ics.php' );
+}
+add_action( 'admin_action_next_meetup_hint_ics', 'next_meetup_hint_get_ics' );
