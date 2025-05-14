@@ -1,5 +1,11 @@
 # Changelog
 
+## [3.1.0] - 14.05.2025
+
+### Added
+
+- Added ICS download for the meetup
+
 ## [3.0.0] - 27.04.2025
 
 ### Added
