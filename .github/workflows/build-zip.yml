@@ -4,6 +4,7 @@ on:
   push:
     tags:
       - '*'
+  workflow_dispatch:
 
 jobs:
   build:
@@ -17,6 +18,9 @@ jobs:
         run: |
           composer install
           composer update
+          cd vendor/threadi/easy-dialog-for-wordpress/
+          npm i
+          npm run build
 
       - name: Run PHPstan check
         run: vendor/bin/phpstan analyse
