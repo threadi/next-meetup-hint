@@ -41,5 +41,6 @@ The plugin uses the function included in WordPress to retrieve Meetup events fro
 
 = @@VersionNumber@@ =
 - Optimized composer settings
+- Updated dependencies
 
 [older changes](https://github.com/threadi/next-meetup-hint/blob/master/changelog.md)

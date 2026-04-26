@@ -21,6 +21,7 @@ defined( 'ABSPATH' ) || exit;
 
 use easySettingsForWordPress\Fields\MultiSelect;
 use easySettingsForWordPress\Fields\Number;
+use easySettingsForWordPress\Page;
 use easySettingsForWordPress\Settings;
 
 // do nothing if PHP-version is not 8.0 or newer.
@@ -439,14 +440,22 @@ function next_meetup_hint_add_settings(): void {
 	$settings_obj->set_menu_slug( 'next-meetup-hint' );
 	$settings_obj->show_settings_link_in_plugin_list( true );
 
+	// get the settings page.
+	$settings_page = $settings_obj->get_page( 'next-meetup-hint' );
+
+	// bail if page could not be found.
+	if( ! $settings_page instanceof Page ) {
+		return;
+	}
+
 	/**
 	 * Configure the tab for the settings.
 	 */
-	$general_tab = $settings_obj->add_tab( 'nmh_general' );
+	$general_tab = $settings_page->add_tab( 'nmh_general', 10 );
 	$general_tab->set_title( __( 'General Settings', 'next-meetup-hint' ) );
-	$settings_obj->set_default_tab( $general_tab );
+	$settings_page->set_default_tab( $general_tab );
 
-	$permissions_tab = $settings_obj->add_tab( 'nmh_permissions' );
+	$permissions_tab = $settings_page->add_tab( 'nmh_permissions', 20 );
 	$permissions_tab->set_title( __( 'Permissions', 'next-meetup-hint' ) );
 
 	/**
