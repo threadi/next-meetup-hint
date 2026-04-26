@@ -40,6 +40,7 @@ The plugin uses the function included in WordPress to retrieve Meetup events fro
 == Changelog ==
 
 = @@VersionNumber@@ =
-- Added ICS download for the meetup
+- Optimized composer settings
+- Updated dependencies
 
 [older changes](https://github.com/threadi/next-meetup-hint/blob/master/changelog.md)
