@@ -444,7 +444,7 @@ function next_meetup_hint_add_settings(): void {
 	$settings_page = $settings_obj->get_page( 'next-meetup-hint' );
 
 	// bail if page could not be found.
-	if( ! $settings_page instanceof Page ) {
+	if ( ! $settings_page instanceof Page ) {
 		return;
 	}
 
