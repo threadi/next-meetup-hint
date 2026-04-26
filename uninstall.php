@@ -6,6 +6,8 @@
  */
 
 // Exit if accessed directly.
+use easySettingsForWordPress\Settings;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
@@ -35,4 +37,5 @@ foreach ( get_users() as $user ) {
 }
 
 // delete all settings.
-\NextMeetupHint\Dependencies\easySettingsForWordPress\Settings::get_instance()->delete_settings();
+$settings_obj = new Settings( __FILE__ );
+$settings_obj->delete_settings();

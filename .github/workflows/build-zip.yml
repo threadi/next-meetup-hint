@@ -25,11 +25,11 @@ jobs:
         run: composer dump-autoload -oa --no-dev
 
       - name: Run WordPress Coding Standard fixes
-        run: vendor/bin/phpcbf --extensions=php --ignore=*/vendor/*,*/svn/*,*/app/Dependencies/* --standard=WordPress .
+        run: vendor/bin/phpcbf --extensions=php --ignore=*/vendor/*,*/svn/*,*/releases/* --standard=WordPress .
         continue-on-error: true
 
       - name: Run WordPress Coding Standard checks
-        run: vendor/bin/phpcs --extensions=php --ignore=*/vendor/*,*/svn/*,*/app/Dependencies/* --standard=WordPress .
+        run: vendor/bin/phpcs --extensions=php --ignore=*/vendor/*,*/svn/*,*/releases/* --standard=WordPress .
 
       - name: Set version number 1
         uses: richardrigutins/replace-in-files@v2
@@ -52,6 +52,9 @@ jobs:
           zip -r -q ${{ github.event.repository.name }}.zip ${{ github.event.repository.name }}/* -x "*/.git/*" "*/.github/*" "*/phpcs.xml" "*/composer.json" "*/composer.lock" "*/readme.md" "*/.gitignore" "*/vendor/*" "*/svn/*" "*/releases/*" "*/assets/*" "*/changelog.md" "*/phpstan.neon"
           zip -ur ${{ github.event.repository.name }}.zip ${{ github.event.repository.name }}/vendor/autoload.php
           zip -ur ${{ github.event.repository.name }}.zip ${{ github.event.repository.name }}/vendor/composer/*
+          zip -ur ${{ github.event.repository.name }}.zip ${{ github.event.repository.name }}/vendor/threadi/*/build/*
+          zip -ur ${{ github.event.repository.name }}.zip ${{ github.event.repository.name }}/vendor/threadi/*/src/*
+          zip -ur ${{ github.event.repository.name }}.zip ${{ github.event.repository.name }}/vendor/threadi/*/assets/*
           cp ${{ github.event.repository.name }}.zip ${{ github.event.repository.name }}/
 
       - name: Create Release

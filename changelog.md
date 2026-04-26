@@ -1,5 +1,11 @@
 # Changelog
 
+## [3.1.1] - 26.04.2026
+
+### Changed
+
+- Optimized composer settings
+
 ## [3.1.0] - 14.05.2025
 
 ### Added
