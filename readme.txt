@@ -3,7 +3,7 @@ Contributors: threadi
 Tags: meetup, meetup event
 Requires at least: 4.9.24
 Tested up to: 7.0
-Requires PHP: 8.0
+Requires PHP: 8.2
 License: GPL-2.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Stable tag: @@VersionNumber@@
@@ -12,11 +12,11 @@ Display the next WordPress meeting in your region as a notice on every backend p
 
 == Description ==
 
-Display the next WordPress meeting in your region as a notice on every backend page. Specify which users in your project may see and use the notice. Define how long in advance the notice should be displayed.
+Display the next WordPress meeting in your region as a notice on every backend page. Specify, which users in your project may see and use the notice. Define how long in advance the notice should be displayed.
 
 = Background =
 
-This plugin was created at the WordPress Meetup in Leipzig on October 1, 2024 as part of a presentation on plugin development.
+This plugin was created at the WordPress Meetup in Leipzig on October 1, 2024, as part of a presentation on plugin development.
 
 Video from the presentation is on [YouTube](https://www.youtube.com/watch?v=8QUesHXOXCs).
 
@@ -40,7 +40,7 @@ The plugin uses the function included in WordPress to retrieve Meetup events fro
 == Changelog ==
 
 = @@VersionNumber@@ =
-- Optimized composer settings
-- Updated dependencies
+- Updated settings lib to 3.0.0
+- PHP 8.2 is now minimum required
 
 [older changes](https://github.com/threadi/next-meetup-hint/blob/master/changelog.md)

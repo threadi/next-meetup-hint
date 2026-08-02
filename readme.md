@@ -6,12 +6,12 @@ This repository provides the features of WordPress plugin _Next meetup hint_. Th
 
 ## Usage
 
-### for users
+### For users
 
 Download the plugin [from the WordPress Repository](https://wordpress.org/plugins/next-meetup-hint/).
 Or download the lastest release ZIP [from GitHub](https://github.com/threadi/next-meetup-hint/releases).
 
-### for developers
+### For developers
 
 Checkout this repository in your development environment.
 
@@ -23,20 +23,20 @@ Checkout this repository in your development environment.
 
 ### Run
 
-`vendor/bin/phpcs --extensions=php --ignore=*/vendor/*,*/svn/*,*/app/Dependencies/* --standard=WordPress .`
+`vendor/bin/phpcs .`
 
 ### Repair
 
-`vendor/bin/phpcbf --extensions=php --ignore=*/vendor/*,*/svn/*,*/app/Dependencies/* --standard=WordPress .`
+`vendor/bin/phpcbf .`
 
 ## Check for WordPress VIP Coding Standards
 
-Hint: this check runs against the VIP-GO-platform which is not our target for this plugin. Many warnings can be ignored.
+Hint: this check runs against the VIP-GO-platform, not our target for this plugin. Many warnings can be ignored.
 
 ### Run
 
 `vendor/bin/phpcs --extensions=php --ignore=*/vendor/*,*/svn/* --standard=WordPress-VIP-Go .`
 
-## Analyse with PHPStan
+## Analyze with PHPStan
 
 `vendor/bin/phpstan analyse`

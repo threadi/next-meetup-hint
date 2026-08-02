@@ -3,7 +3,7 @@
  * Plugin Name:       Next Meetup Hint
  * Description:       Show hint for next meetup.
  * Requires at least: 4.9.24
- * Requires PHP:      8.0
+ * Requires PHP:      8.2
  * Version:           @@VersionNumber@@
  * Author:            Thomas Zwirner
  * Author URI:        https://www.thomaszwirner.de
@@ -24,8 +24,8 @@ use easySettingsForWordPress\Fields\Number;
 use easySettingsForWordPress\Page;
 use easySettingsForWordPress\Settings;
 
-// do nothing if PHP-version is not 8.0 or newer.
-if ( PHP_VERSION_ID < 80000 ) { // @phpstan-ignore smaller.alwaysFalse
+// do nothing if PHP-version is not 8.2 or newer.
+if ( PHP_VERSION_ID < 80200 ) { // @phpstan-ignore smaller.alwaysFalse
 	return;
 }
 

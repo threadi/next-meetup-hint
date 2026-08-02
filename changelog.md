@@ -1,5 +1,13 @@
 # Changelog
 
+## [3.1.2] - 02.08.2026
+
+### Changed
+
+- Updated settings lib to 3.0.0
+- PHP 8.2 is now minimum required
+- Updated the usage of WordPress Coding Standard checks during the release
+
 ## [3.1.1] - 26.04.2026
 
 ### Changed
