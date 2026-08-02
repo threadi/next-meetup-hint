@@ -5,12 +5,10 @@
  * @package next-meetup-hint
  */
 
-// Exit if accessed directly.
-use easySettingsForWordPress\Settings;
+// prevent direct access.
+defined( 'ABSPATH' ) || exit;
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
+use easySettingsForWordPress\Settings;
 
 // if uninstall.php is not called by WordPress, die.
 if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) {
