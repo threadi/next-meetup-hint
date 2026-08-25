@@ -439,6 +439,9 @@ function next_meetup_hint_add_settings(): void {
 	$settings_obj->set_title( __( 'Settings for Next Meetup Hint', 'next-meetup-hint' ) );
 	$settings_obj->set_menu_slug( 'next-meetup-hint' );
 	$settings_obj->show_settings_link_in_plugin_list( true );
+	if ( method_exists( $settings_obj, 'set_view' ) ) { // @phpstan-ignore function.alreadyNarrowedType
+		$settings_obj->set_view( 'dataview' );
+	}
 
 	// get the settings page.
 	$settings_page = $settings_obj->get_page( 'next-meetup-hint' );
