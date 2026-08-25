@@ -1,6 +1,6 @@
 {
     "name": "threadi/next-meetup-hint",
-    "version": "3.1.2",
+    "version": "3.1.3",
     "authors": [
         {
             "name": "Thomas Zwirner",
@@ -23,10 +23,10 @@
     },
     "require": {
         "php": "^8.2",
-        "threadi/easy-settings-for-wordpress" : "^3.0.0"
+        "threadi/easy-settings-for-wordpress" : "^3.3.1"
     },
     "require-dev": {
-        "wp-coding-standards/wpcs": "^3.1.0",
+        "wp-coding-standards/wpcs": "^3.4.1",
         "automattic/vipwpcs": "^3.0",
         "phpstan/phpstan": "^2.1",
         "szepeviktor/phpstan-wordpress": "^2.0",

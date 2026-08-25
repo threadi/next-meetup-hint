@@ -40,7 +40,7 @@ The plugin uses the function included in WordPress to retrieve Meetup events fro
 == Changelog ==
 
 = @@VersionNumber@@ =
-- Updated settings lib to 3.0.0
-- PHP 8.2 is now minimum required
+- Now using DataView for the settings for WordPress >= 7.0
+- Updated settings library
 
 [older changes](https://github.com/threadi/next-meetup-hint/blob/master/changelog.md)

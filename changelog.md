@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.1.3] - 25.08.2026
+
+### Changed
+
+- Now using DataView for the settings for WordPress >= 7.0
+- Updated settings library
+
 ## [3.1.2] - 02.08.2026
 
 ### Changed
