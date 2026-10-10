@@ -14,9 +14,14 @@
     <exclude-pattern>*/app/Dependencies/*</exclude-pattern>
     <exclude-pattern>*/svn/*</exclude-pattern>
     <exclude-pattern>*/vendor/*</exclude-pattern>
+    <exclude-pattern>*/node_modules/*</exclude-pattern>
+    <exclude-pattern>*/dist/*</exclude-pattern>
 
     <!-- Use additional rulesets -->
     <rule ref="WordPress-Docs"/>
     <rule ref="WordPress-Extra"/>
     <rule ref="WordPress"/>
+
+    <!-- Minimum supported WordPress version, see "Requires at least" in readme.txt. -->
+    <config name="minimum_wp_version" value="6.6"/>
 </ruleset>

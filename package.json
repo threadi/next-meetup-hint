@@ -1,0 +1,9 @@
+{
+  "name": "next-meetup-hint",
+  "private": true,
+  "description": "Tools to test the plugin Next Meetup Hint. Not part of the release.",
+  "license": "GPL-2.0-or-later",
+  "devDependencies": {
+    "@wp-playground/cli": "3.1.55"
+  }
+}

@@ -40,3 +40,21 @@ Hint: this check runs against the VIP-GO-platform, not our target for this plugi
 ## Analyze with PHPStan
 
 `vendor/bin/phpstan analyse`
+
+## Check PHP compatibility
+
+`vendor/bin/phpcs -p next-meetup-hint.php uninstall.php templates --extensions=php --standard=PHPCompatibilityWP --runtime-set testVersion 8.2-`
+
+## Smoke test in WordPress Playground
+
+```
+composer install --no-dev
+npm ci
+npx --no -- @wp-playground/cli run-blueprint --blueprint=./.github/blueprints/smoke.json --mount="$(pwd):/wordpress/wp-content/plugins/next-meetup-hint"
+```
+
+The test writes `SMOKE_OK` to `smoke-result.txt` if the plugin could be activated and works.
+
+## Release
+
+Push a tag with the version number, e.g. `3.2.0`. The workflow "Build release zip" checks the code, builds the zip, runs the smoke test and creates the release with the notes of this version from `changelog.md`.

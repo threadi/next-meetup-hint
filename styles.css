@@ -7,9 +7,16 @@
 
 .next-meetup-hint p { line-height: 2; }
 
-.next-meetup-hint p a { text-decoration: none; }
+.next-meetup-hint p a,
+.next-meetup-hint .next-meetup-hint-options a { text-decoration: none; }
 
-.next-meetup-hint p a[target="_blank"]:after {
+.next-meetup-hint .next-meetup-hint-options {
+	line-height: 2;
+	margin: .5em 0 1em;
+}
+
+.next-meetup-hint p a[target="_blank"]:after,
+.next-meetup-hint .next-meetup-hint-options a[target="_blank"]:after {
 	content: "\f504";
 	display: inline-block;
 	font-family: "dashicons", sans-serif;
@@ -18,7 +25,8 @@
 	vertical-align: middle;
 }
 
-.next-meetup-hint p .dashicons {
+.next-meetup-hint p .dashicons,
+.next-meetup-hint .next-meetup-hint-options .dashicons {
 	position: relative;
 	top: 3px;
 	z-index: 1;
@@ -39,6 +47,19 @@
 	font-family: dashicons, sans-serif;
 	font-size: 32px;
 	margin-right: .4em;
+	vertical-align: middle;
+}
+
+/* show the review button right of the headline, also in the settings page of WordPress 7.0 or newer */
+body.settings_page_next-meetup-hint .wrap h1 {
+	display: inline-block;
+	margin-right: 4px;
+	max-width: calc(100% - 200px);
+	vertical-align: middle;
+}
+
+body.settings_page_next-meetup-hint a.review-hint-button {
+	top: 0;
 	vertical-align: middle;
 }
 
@@ -72,7 +93,8 @@ body.settings_page_next-meetup-hint a.review-hint-button:after {
 	padding: 20px;
 	background: #fff;
 	border-radius: 5px;
-	width: 30%;
+	box-sizing: border-box;
+	width: min(600px, 90%);
 	position: relative;
 	transition: all 5s ease-in-out;
 }
@@ -87,19 +109,11 @@ body.settings_page_next-meetup-hint a.review-hint-button:after {
 	text-decoration: none;
 	color: #333;
 }
-.next-meetup-hint .popup .close:hover {
-	color: red;
+.next-meetup-hint .popup .close:hover,
+.next-meetup-hint .popup .close:focus {
+	color: #d63638;
 }
 .next-meetup-hint .popup .content {
-	max-height: 30%;
+	max-height: 60vh;
 	overflow: auto;
-}
-
-@media screen and (max-width: 700px){
-	.next-meetup-hint .box {
-		width: 70%;
-	}
-	.next-meetup-hint .popup {
-		width: 70%;
-	}
 }
