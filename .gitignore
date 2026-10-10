@@ -2,3 +2,8 @@
 svn/*
 app/Dependencies/*
 vendor/*
+node_modules/
+dist/
+*.spdx.json
+release-notes.md
+smoke-result.txt

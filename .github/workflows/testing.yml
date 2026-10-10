@@ -1,0 +1,71 @@
+name: Testing
+
+on:
+  pull_request:
+    branches:
+      - '**'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  checks:
+    name: Code checks
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Check composer.json and composer.lock
+        run: composer validate --strict --no-check-publish --no-check-version
+
+      - name: Install dependencies
+        run: composer install --no-interaction --no-progress
+
+      - name: Run PHPStan check
+        run: vendor/bin/phpstan analyse --no-progress
+
+      - name: Run WordPress Coding Standard checks
+        run: vendor/bin/phpcs .
+
+      - name: PHP Compatibility check
+        run: vendor/bin/phpcs -p next-meetup-hint.php uninstall.php templates --extensions=php --standard=PHPCompatibilityWP --runtime-set testVersion 8.2-
+
+  smoke:
+    name: Smoke test in WordPress Playground
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Setup Node
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          # the Playground packages in package-lock.json need Node 24.
+          node-version: 24
+
+      - name: Install dependencies
+        run: |
+          composer install --no-dev --no-interaction --no-progress
+          npm ci
+
+      - name: Run the smoke test
+        run: |
+          set -o pipefail
+          rm -f smoke-result.txt
+
+          # "--no": use the version from package-lock.json, never download another one.
+          npx --no -- @wp-playground/cli run-blueprint \
+            --blueprint=./.github/blueprints/smoke.json \
+            --mount="$GITHUB_WORKSPACE:/wordpress/wp-content/plugins/next-meetup-hint" \
+            2>&1 | tee "$RUNNER_TEMP/smoke.log"
+
+          if ! grep -qs "SMOKE_OK" smoke-result.txt; then
+            echo "::error::SMOKE_OK not found in smoke-result.txt - check the log above."
+            exit 1
+          fi

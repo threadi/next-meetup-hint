@@ -1,7 +1,7 @@
 === Next Meetup Hint ===
 Contributors: threadi
 Tags: meetup, meetup event
-Requires at least: 4.9.24
+Requires at least: 6.6
 Tested up to: 7.1
 Requires PHP: 8.2
 License: GPL-2.0-or-later
@@ -37,10 +37,21 @@ The development repository is on [GitHub](https://github.com/threadi/next-meetup
 
 The plugin uses the function included in WordPress to retrieve Meetup events from an API provided by wordpress.org.
 
+= Which data is sent to wordpress.org? =
+
+The plugin uses the location each user has saved in the dashboard widget "WordPress Events and News". WordPress sends this location to api.wordpress.org to get the events nearby, as the widget itself does. If a user has not saved a location yet, the plugin requests nothing for this user. The result is saved for one hour per user.
+
 == Changelog ==
 
 = @@VersionNumber@@ =
-- Now using DataView for the settings for WordPress >= 7.0
-- Updated settings library
+- Events are now cached per user and only requested when a hint can be shown
+- Events are only requested for users who have saved a location in the dashboard widget
+- ICS file is now valid for all calendars and uses the correct time
+- Fixed empty settings page in WordPress 7.0 or newer
+- Fixed resetting the user settings when an administrator edits another user
+- Fixed loading all users on every request
+- Fixed possible error with unexpected values of the settings
+- Uninstalling now removes all settings, also in multisites
+- WordPress 6.6 is now minimum required
 
 [older changes](https://github.com/threadi/next-meetup-hint/blob/master/changelog.md)

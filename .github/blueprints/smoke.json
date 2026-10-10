@@ -1,0 +1,18 @@
+{
+    "$schema": "https://playground.wordpress.net/blueprint-schema.json",
+    "preferredVersions": {
+        "php": "8.2",
+        "wp": "latest"
+    },
+    "login": true,
+    "steps": [
+        {
+            "step": "activatePlugin",
+            "pluginPath": "next-meetup-hint/next-meetup-hint.php"
+        },
+        {
+            "step": "runPHP",
+            "code": "<?php require_once '/wordpress/wp-load.php'; if ( ! defined( 'NEXT_MEETUP_HINT_VERSION' ) ) { throw new Exception( 'plugin constants missing' ); } if ( 14 !== absint( get_option( 'nmh_days_before' ) ) ) { throw new Exception( 'default settings missing' ); } if ( ! next_meetup_hint_is_user_allowed( 1 ) ) { throw new Exception( 'administrator is not allowed to see the hint' ); } if ( 'SUMMARY:a\\, b\\; c\\nd' . chr( 13 ) . chr( 10 ) !== next_meetup_hint_ics_line( 'SUMMARY:' . next_meetup_hint_ics_text( 'a, b; c' . chr( 10 ) . 'd' ) ) ) { throw new Exception( 'ICS escaping failed' ); } file_put_contents( '/wordpress/wp-content/plugins/next-meetup-hint/smoke-result.txt', 'SMOKE_OK' );"
+        }
+    ]
+}
