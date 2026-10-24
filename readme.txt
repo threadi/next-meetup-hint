@@ -44,14 +44,7 @@ The plugin uses the location each user has saved in the dashboard widget "WordPr
 == Changelog ==
 
 = @@VersionNumber@@ =
-- Events are now cached per user and only requested when a hint can be shown
-- Events are only requested for users who have saved a location in the dashboard widget
-- ICS file is now valid for all calendars and uses the correct time
-- Fixed empty settings page in WordPress 7.0 or newer
-- Fixed resetting the user settings when an administrator edits another user
-- Fixed loading all users on every request
-- Fixed possible error with unexpected values of the settings
-- Uninstalling now removes all settings, also in multisites
-- WordPress 6.6 is now minimum required
+- Set compatibility for WordPress 7.2
+- Updated dependencies
 
 [older changes](https://github.com/threadi/next-meetup-hint/blob/master/changelog.md)
