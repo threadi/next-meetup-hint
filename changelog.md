@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.2.1] - 24.10.2026
+
+### Changed
+
+- Set compatibility for WordPress 7.2
+- Updated dependencies
+
 ## [3.2.0] - 10.10.2026
 
 ### Added
